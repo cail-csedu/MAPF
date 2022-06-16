@@ -3,10 +3,10 @@ void testMotorMS() { /* function testMotorMS */
  Serial.println(F("-------------------------------------"));
  Serial.println(F("Forward "));
  forward(100);
- delay(500);
+ delay(2000);
  Serial.println(F("Backward "));
  backward(100);
- delay(500);
+ delay(2000);
  Serial.println(F("Stop "));
  brake();
  delay(1000);
@@ -94,8 +94,8 @@ void plannedACRotate()
 void plannedCRotate()
 {
   analogWrite(motorPin1,0);
-  analogWrite(motorPin2, rotationSpeed);
-  analogWrite(motorPin3, rotationSpeed-15);
+  analogWrite(motorPin2, rotationSpeed+30);
+  analogWrite(motorPin3, rotationSpeed+30);
   analogWrite(motorPin4,0);
 
 }

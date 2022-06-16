@@ -58,11 +58,11 @@ float mappedValue, targetValue = 5;      //mapped value ranges from 0 to 10, 5 i
 int checkpoint = 0;
 
 
-float safety=0.35;
+float safety=0.70;
 
 //PID controller >> Proportional(P), Derivative(D), Integral(I)
 int kp=200;                       //Increrase Kp to increase sensitivity (Coarse tune)
-int kd=0 ;                       //Increrase Kd to decrease sensitivity (Fine tune)                               
+int kd=50 ;                       //Increrase Kd to decrease sensitivity (Fine tune)                               
 
 int motorResponse;
 float correction;
@@ -100,31 +100,34 @@ void setup()
 
 
   //Arm initialization
-  HCPCA9685.Init(SERVO_MODE);
+  //HCPCA9685.Init(SERVO_MODE);
 
   /* Wake the device up */
-  HCPCA9685.Sleep(false);
+  //HCPCA9685.Sleep(false);
 
 
   // Initialize arm to home
+  /*
   servo01(motor_position[0]);
   servo02(motor_position[1]);
   servo03(motor_position[2]);
   servo04(motor_position[3]);
   servo05(motor_position[4]);
   servo06(motor_position[5]);
-
+*/
 //  pick();
 //  place();
 
   
   calibration();
   delay(4000);
+  
 }
 
 
 void loop()
 {
+  //sensorMapping();
 
 
   if(Serial.available()>0){
@@ -132,6 +135,7 @@ void loop()
 
     if(command == 'F'){
       nextNode();
+      //testMotorMS();
     }
 
     if(command == 'R'){
@@ -148,7 +152,8 @@ void loop()
 }
 
 void nextNode(){
-
+  forward(maxSpeed);
+  delay(1000);
   while(1){
     
   sensorMapping();//This function maps the sensor values to understand the robot position.
@@ -176,25 +181,31 @@ void nextNode(){
 
 
 void rotateRight(){
+  forward(100);
+  delay(550);
   plannedCRotate();
-  delay(70);
-  while(digitalReading[1]!=1 && digitalReading[2]!=1 && digitalReading[3]!=1 && digitalReading[4]!=1){
-        //0 1 1 1 1 0
-        brake();
-        Serial.println("Rotated Right");
-        break;
+  delay(700);
+  sensorMapping();
+  while(digitalReading[2]!=1 and digitalReading[3]!=1){
+        //0 0 1 1 0 0
+        sensorMapping();
       }
+      brake();
+      Serial.println("Rotated Right");
 }
 
 void rotateLeft(){
+  forward(100);
+  delay(500);
   plannedACRotate();
-  delay(70);
-  while(digitalReading[1]!=1 && digitalReading[2]!=1 && digitalReading[3]!=1 && digitalReading[4]!=1){
-        //0 1 1 1 1 0
-        brake();
-        Serial.println("Rotated Left");
-        break;
+  delay(700);
+  sensorMapping();
+  while(digitalReading[2]!=1 and digitalReading[3]!=1){
+        //0 0 1 1 0 0
+        sensorMapping();
       }
+      brake();
+      Serial.println("Rotated Left");
 }
 
 
@@ -266,7 +277,7 @@ void pid()
 void calibration()
 {
   Serial.println("Calibrating.....");
-  plannedCRotate();  //rotate colockwise while calibrating. It will help getting different sensor values for black and white
+  //plannedCRotate();  //rotate colockwise while calibrating. It will help getting different sensor values for black and white
 
   
   float upSum = 0,lowSum = 0;
