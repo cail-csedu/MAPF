@@ -46,10 +46,15 @@ void record_run(int arr[][6], int size)
   }
 }
 
-void pick(){
-  record_run(pick_locations, 7);
+void pickLeft(){
+  record_run(pick_locations_left, 7);
 }
-
-void place(){
-  record_run(place_locations, 7);
+void pickRight(){
+  record_run(pick_locations_right, 7);
+}
+void placeLeft(){
+  record_run(place_locations_left, 7);
+}
+void placeRight(){
+  record_run(place_locations_right, 7);
 }

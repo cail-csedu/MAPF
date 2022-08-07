@@ -1,6 +1,19 @@
 #include <SoftwareSerial.h>
 #define resetPin 4
+#define robot_1
 #include "HCPCA9685.h"
+
+#ifdef robot_1
+  #include "variables1.h"
+#elif robot_2
+  #include "variables2.h"
+#elif robot_3
+  #include "variables3.h"
+#elif robot_4
+  #include "variables4.h"
+#else robot_5
+  #include "variables5.h"  
+#endif
 
 /* I2C slave address for the device/module. For the HCMODU0097 the default I2C address is 0x40 */
 #define  I2CAdd 0x40
@@ -25,26 +38,6 @@ int Delay=70;
 
 int Step=0;
 int temp;
-
-//int storage[][6]; //{ {s1,s2,...s6}, {s1,s2,...s6}, {s1,s2,...s6},.......}
-int pick_locations[7][6] = {25,169,178,74,41,166,//forward
-                112,169,178,74,41,166,//left
-                112,128,130,74,86,166,//approach
-                112,128,130,74,86,137,//grab
-                112,135,130,74,95,137,//off of pick placed
-                112,169,178,74,41,137,//left_grabbed
-                25,169,178,74,41,137//forward grabbed
-           
-  };
-
-int place_locations[7][6] = {25,169,178,74,41,137,//forward grabbed
-                112,169,178,74,41,137,//left_grabbed
-                112,135,130,74,95,137,//off of pick placed
-                112,128,130,74,86,137,//grab
-                112,128,130,74,86,166,//approach
-                112,169,178,74,41,166,//left
-                25,169,178,74,41,166//forward        
-  };
 
   
 //=================Line following variables
