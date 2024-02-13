@@ -39,12 +39,24 @@ void motor(int left, int right)//left, right value ranges from (-maxSpeed, maxSp
 
  }
 
+void Motor(int left, int right, int Delay){
+  motor(left, right);
+  delay(Delay);
+  brake();
+}
 void forward(int pwm) { /* function dcForward */
   analogWrite(motorPin1, pwm);//right
   analogWrite(motorPin2, 0);
   analogWrite(motorPin3, pwm);//left
   analogWrite(motorPin4, 0);
 }
+void Forward(int pwm, int Delay){
+  forward(pwm);
+  delay(Delay);
+  brake();
+}
+
+
 void backward(int pwm) { /* function dcBackward */
   analogWrite(motorPin1, 0);//right
   analogWrite(motorPin2, pwm);

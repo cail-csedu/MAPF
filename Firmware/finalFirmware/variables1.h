@@ -1,35 +1,51 @@
+//Calibrated values
+int blackLimit[6] = {851,938,871,874,871,889};
+
+//PID controller >> Proportional(P), Derivative(D), Integral(I)
+int kp = 190;                     //Increrase Kp to increase sensitivity (Coarse tune)
+int kd = 50 ;                     //Increrase Kd to decrease sensitivity (Fine tune)
+
+int maxSpeed = 95;  //TO change the speed of the robot(255 can be set max)
+
 //int storage[][6]; //{ {s1,s2,...s6}, {s1,s2,...s6}, {s1,s2,...s6},.......}
-int pick_locations_left[7][6] = {76,126,160,72,25,133,//home
-                                144,137,171,72,23,133,//left
-                                144,70,77,72,43,133,//approach
-                                144,70,77,72,43,40,//grab
-                                144,110,77,72,43,40,//off of pick placed
-                                144,137,171,72,23,40,//left_grabbed
-                                76,126,160,72,25,40//forward grabbed
+//=================Arm variables
+int motor_position[6]={25,169,178,74,41,166}; //Initial Motor position
+int cameraLeft = 175;
+int cameraFront = 90;
+int cameraRight = 0;
+int currentCameraAngle = cameraFront;
+
+int pick_locations_left[7][6] = {76,126,160,72,25,100,//home
+                                140,103,122,164,68,100,//left
+                                140,85,100,162,68,100,//approach
+                                140,85,100,162,68,40,//grab
+                                140,117,115,162,68,40,//off of pick placed
+                                140,117,115,162,68,40,//left_grabbed
+                                76,126,160,164,68,40//forward grabbed
            
   };
-int pick_locations_right[7][6] = {76,126,160,72,25,133,//home
-                                144,137,171,72,23,133,//right
-                                144,70,77,72,43,133,//approach
-                                144,70,77,72,43,40,//grab
-                                144,110,77,72,43,40,//off of pick place
-                                144,137,171,72,23,40,//right_grabbed
-                                76,126,160,72,25,40//forward grabbed
+int pick_locations_right[7][6] = {76,126,160,72,25,100,//home
+                                5,103,122,164,68,100,//right
+                                5,85,100,162,68,100,//approach
+                                5,85,100,162,68,40,//grab
+                                5,117,115,162,68,40,//off of pick place
+                                5,117,115,164,68,40,//right_grabbed
+                                76,126,160,164,68,40//forward grabbed
            
   };
-int place_locations_left[7][6] = {76,126,160,72,25,40,//home
-                                0,137,171,72,23,40,//left_grabbed
-                                0,70,77,72,43,40,//approach
-                                0,70,77,72,43,133,//ungrab
-                                0,110,77,72,43,133,//off of placing place
-                                0,137,171,72,23,133,//left
-                                76,126,160,72,25,133//forward grabbed
+int place_locations_left[7][6] = {76,126,160,164,68,40,//home
+                                140,126,160,164,68,40,//left_grabbed
+                                140,70,115,72,75,40,//approach
+                                140,70,115,72,75,100,//ungrab
+                                140,104,146,72,75,100,//off of placing place
+                                140,104,146,72,75,100,//left
+                                76,126,160,72,25,100//forward grabbed
   };
-int place_locations_right[7][6] = {76,126,160,72,25,133,//home
-                                0,137,171,72,23,133,//right_grabbed
-                                0,70,77,72,43,133,//approach
-                                0,70,77,72,43,40,//ungrab
-                                0,110,77,72,43,40,//off of placing place
-                                0,137,171,72,23,40,//right
-                                76,126,160,72,25,40//forward openned      
+int place_locations_right[7][6] = {76,126,160,164,68,40,//home
+                                0,126,160,164,68,40,//right_grabbed
+                                0,70,115,72,75,40,//approach
+                                0,70,115,72,75,100,//ungrab
+                                0,104,146,72,75,100,//off of placing place
+                                0,104,146,72,75,100,//right
+                                76,126,160,72,25,100//forward openned      
   };

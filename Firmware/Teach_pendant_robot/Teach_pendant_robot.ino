@@ -7,7 +7,7 @@ HCPCA9685 HCPCA9685(I2CAdd);
 
 
 
-int motor_position[6]={112,169,178,88,41,158};
+int motor_position[6]={0,103,122,164,68,95};
                                                        
 int storage[6][50];
 int storage_loc= 0;
